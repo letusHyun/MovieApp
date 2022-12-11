@@ -10,7 +10,7 @@ import UIKit
 
 class DescriptionLabel: UILabel {
   
-  private var padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) //custom padding 설정
+  private var padding = UIEdgeInsets(top: 0, left: 1, bottom: 1, right: 1) //custom padding 설정
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -29,8 +29,8 @@ class DescriptionLabel: UILabel {
   //padding을 변경한다고 intrinsicContentSize가 변경되지 않기 때문에, label.text의 내용이 잘리는 현상 발생하거나 top, bottom이 적용 안된 상태로 적용 -> intrinsicContentSize 업데이트 필요
   override var intrinsicContentSize: CGSize {
     var contentSize = super.intrinsicContentSize
-    contentSize.width = padding.left + padding.right
-    contentSize.height = padding.top + padding.bottom
+    contentSize.width = padding.left + padding.right + contentSize.width
+    contentSize.height = padding.top + padding.bottom + contentSize.height
     return contentSize
   }
 }

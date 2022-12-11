@@ -38,16 +38,17 @@ class MovieListCell: UITableViewCell {
     price.textColor = .label
     price.font = .systemFont(ofSize: 18, weight: .bold)
     price.text = "\(99.99)USD"
-    price.textAlignment = .right
+    
     return price
   }()
   
-  let descriptionLabel: DescriptionLabel = {
-    let description = DescriptionLabel()
+  let descriptionLabel: UILabel = {
+    let description = UILabel()
     description.textColor = .systemGray
     description.font = .systemFont(ofSize: 17)
     description.numberOfLines = 0
     description.text = "description"
+    description.textAlignment = .left
     
     return description
   }()
