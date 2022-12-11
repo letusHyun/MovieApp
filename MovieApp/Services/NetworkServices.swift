@@ -57,7 +57,7 @@ class NetworkServices {
     let url = URL(string: urlString)!
     URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
       let successRange = 200..<300
-      guard error != nil, let statusCode = (response as? HTTPURLResponse)?.statusCode, successRange.contains(statusCode) else {
+      guard error == nil, let statusCode = (response as? HTTPURLResponse)?.statusCode, successRange.contains(statusCode) else {
         completion(nil)
         return
       }
