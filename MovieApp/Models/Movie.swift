@@ -13,7 +13,7 @@ struct MovieList: Codable {
 
 struct Movie: Codable {
   let trackName: String?
-  let date: String?
+  let date: String
   let trackPrice: Double?
   let imageUrl: String?
   let shortDescription: String?

@@ -20,7 +20,7 @@ class MovieListCell: UITableViewCell {
     let title = UILabel()
     title.textColor = .label
     title.font = .systemFont(ofSize: 20, weight: .bold)
-    title.numberOfLines = 0
+    title.numberOfLines = 2
     title.text = "Title"
     return title
   }()
@@ -42,12 +42,13 @@ class MovieListCell: UITableViewCell {
     return price
   }()
   
-  let descriptionLabel: UILabel = {
-    let description = UILabel()
+  let descriptionLabel: DescriptionLabel = {
+    let description = DescriptionLabel()
     description.textColor = .systemGray
     description.font = .systemFont(ofSize: 17)
     description.numberOfLines = 0
-    description.text = "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription"
+    description.text = "description"
+    
     return description
   }()
   
@@ -55,6 +56,13 @@ class MovieListCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     configure()
   }
+  
+  //Q: image만 초기화 해주는 이유가 있을까?
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    thumbnailImage.image = nil
+  }
+  
   //MARK: - private
   private func configure() {
     
@@ -88,16 +96,13 @@ class MovieListCell: UITableViewCell {
       
       descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
       descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-      descriptionLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -5),
+      descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: priceLabel.topAnchor, constant: -5),
       
       priceLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
       priceLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
       priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
     ])
-//    descriptionLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
-//    priceLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
     descriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-    priceLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
   }
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")

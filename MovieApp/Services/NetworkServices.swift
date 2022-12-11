@@ -26,6 +26,8 @@ class NetworkServices {
     let url = urlComponents.url!
   
     let request = URLRequest(url: url)
+    
+    //Q: [weak self] warning?
     let dataTask = session.dataTask(with: request) { [weak self] data, response, error in
       let successRange = 200..<300
       
@@ -38,7 +40,8 @@ class NetworkServices {
       }
       
       do {
-        let movieList = try JSONDecoder().decode(MovieList.self, from: resultData)
+        let decoder = JSONDecoder()
+        let movieList = try decoder.decode(MovieList.self, from: resultData)
         completion(movieList)
       } catch {
         print("--> error: \(error.localizedDescription)")

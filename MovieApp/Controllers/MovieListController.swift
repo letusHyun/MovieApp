@@ -56,6 +56,16 @@ class MovieListController: UIViewController {
       }
     }
   }
+  private func formattingDate(dateString: String) -> String {
+    let isoFormatter = ISO8601DateFormatter()
+    let isoDate = isoFormatter.date(from: dateString)!
+    
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy년 MM월 dd일"
+    
+    let result = formatter.string(from: isoDate)
+    return result
+  }
 }
 
 extension MovieListController: UITableViewDelegate, UITableViewDataSource {
@@ -68,12 +78,14 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListCell", for: indexPath) as? MovieListCell else {
       return UITableViewCell()
     }
+    
     if let movie = movieList?.results[indexPath.row] {
       cell.titleLabel.text = movie.trackName
       cell.descriptionLabel.text = movie.shortDescription
-      //date
-      //image
+      cell.dateLabel.text = formattingDate(dateString: movie.date)
+      cell.priceLabel.text = "\(movie.trackPrice!)USD"
     }
+    
     return cell
   }
 }
