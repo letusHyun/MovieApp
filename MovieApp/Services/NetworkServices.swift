@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class NetworkServices {
   func getAPI(completion: @escaping (MovieList?) -> Void) {
@@ -51,4 +52,23 @@ class NetworkServices {
     
     dataTask.resume()
   }
+  
+  func loadImage(urlString: String, completion: @escaping (UIImage?) -> Void) {
+    let url = URL(string: urlString)!
+    URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+      let successRange = 200..<300
+      guard error != nil, let statusCode = (response as? HTTPURLResponse)?.statusCode, successRange.contains(statusCode) else {
+        completion(nil)
+        return
+      }
+      
+      if let hasData = data {
+        completion(UIImage(data: hasData))
+        return
+      }
+      
+      completion(nil)
+    }.resume()
+  }
+  
 }

@@ -19,7 +19,7 @@ class MovieListCell: UITableViewCell {
   let titleLabel: UILabel = {
     let title = UILabel()
     title.textColor = .label
-    title.font = .systemFont(ofSize: 20, weight: .bold)
+    title.font = .systemFont(ofSize: 18, weight: .bold)
     title.numberOfLines = 2
     title.text = "Title"
     return title
@@ -28,7 +28,7 @@ class MovieListCell: UITableViewCell {
   let dateLabel: UILabel = {
     let date = UILabel()
     date.textColor = .label
-    date.font = .systemFont(ofSize: 16)
+    date.font = .systemFont(ofSize: 13)
     date.text = "xxxx년 xx월 xx일"
     return date
   }()
@@ -36,19 +36,18 @@ class MovieListCell: UITableViewCell {
   let priceLabel: UILabel = {
     let price = UILabel()
     price.textColor = .label
-    price.font = .systemFont(ofSize: 18, weight: .bold)
+    price.font = .systemFont(ofSize: 14, weight: .bold)
     price.text = "\(99.99)USD"
-    
+    price.textAlignment = .right
     return price
   }()
   
   let descriptionLabel: UILabel = {
     let description = UILabel()
     description.textColor = .systemGray
-    description.font = .systemFont(ofSize: 17)
+    description.font = .systemFont(ofSize: 13)
     description.numberOfLines = 0
     description.text = "description"
-    description.textAlignment = .left
     
     return description
   }()
@@ -103,10 +102,14 @@ class MovieListCell: UITableViewCell {
       priceLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
       priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
     ])
+    
     descriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+    descriptionLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
   }
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
 }
 

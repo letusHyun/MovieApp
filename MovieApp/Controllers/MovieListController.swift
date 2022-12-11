@@ -56,6 +56,7 @@ class MovieListController: UIViewController {
       }
     }
   }
+  
   private func formattingDate(dateString: String) -> String {
     let isoFormatter = ISO8601DateFormatter()
     let isoDate = isoFormatter.date(from: dateString)!
@@ -84,6 +85,13 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
       cell.descriptionLabel.text = movie.shortDescription
       cell.dateLabel.text = formattingDate(dateString: movie.date)
       cell.priceLabel.text = "\(movie.trackPrice!)USD"
+      if let hasUrl = movie.imageUrl {
+        NetworkServices().loadImage(urlString: hasUrl) { image in
+          DispatchQueue.main.async {
+            cell.thumbnailImage.image = image
+          }
+        }
+      }
     }
     
     return cell

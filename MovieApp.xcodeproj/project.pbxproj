@@ -15,7 +15,6 @@
 		13FD448D29430F9700499242 /* MovieListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD448C29430F9700499242 /* MovieListCell.swift */; };
 		13FD44912944178C00499242 /* NetworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD44902944178C00499242 /* NetworkServices.swift */; };
 		13FD449429442A5200499242 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD449329442A5200499242 /* Movie.swift */; };
-		13FD44972945C6CA00499242 /* DescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD44962945C6CA00499242 /* DescriptionLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		13FD448C29430F9700499242 /* MovieListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCell.swift; sourceTree = "<group>"; };
 		13FD44902944178C00499242 /* NetworkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServices.swift; sourceTree = "<group>"; };
 		13FD449329442A5200499242 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		13FD44962945C6CA00499242 /* DescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +76,6 @@
 		13FD448B29430F6B00499242 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				13FD44952945C6B600499242 /* Custom Labels */,
 				13FD448C29430F9700499242 /* MovieListCell.swift */,
 			);
 			path = Cells;
@@ -106,14 +103,6 @@
 				13FD449329442A5200499242 /* Movie.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		13FD44952945C6B600499242 /* Custom Labels */ = {
-			isa = PBXGroup;
-			children = (
-				13FD44962945C6CA00499242 /* DescriptionLabel.swift */,
-			);
-			path = "Custom Labels";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,7 +177,6 @@
 			files = (
 				13FD44912944178C00499242 /* NetworkServices.swift in Sources */,
 				135A88BA2941C59900DE410F /* MovieListController.swift in Sources */,
-				13FD44972945C6CA00499242 /* DescriptionLabel.swift in Sources */,
 				13FD449429442A5200499242 /* Movie.swift in Sources */,
 				135A88B62941C59900DE410F /* AppDelegate.swift in Sources */,
 				13FD448D29430F9700499242 /* MovieListCell.swift in Sources */,
