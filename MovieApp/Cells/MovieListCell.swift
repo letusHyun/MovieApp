@@ -11,8 +11,7 @@ class MovieListCell: UITableViewCell {
   
   //MARK: - Property
   let thumbnailImage: UIImageView = {
-    let imageView = UIImageView(image: UIImage(systemName: "sun.min"))
-    imageView.contentMode = .scaleToFill
+    let imageView = UIImageView(frame: .zero)
     return imageView
   }()
   
@@ -82,8 +81,8 @@ class MovieListCell: UITableViewCell {
       thumbnailImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
       thumbnailImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
       thumbnailImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-      thumbnailImage.widthAnchor.constraint(equalToConstant: 100),
-      thumbnailImage.heightAnchor.constraint(equalToConstant: 140),
+      thumbnailImage.widthAnchor.constraint(equalToConstant: 70),
+      thumbnailImage.heightAnchor.constraint(equalToConstant: 120),
       
       titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
       titleLabel.leadingAnchor.constraint(equalTo: thumbnailImage.trailingAnchor, constant: 10),
