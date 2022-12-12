@@ -17,18 +17,15 @@ class NetworkServices {
     //component
     var urlComponents = URLComponents(string: "https://itunes.apple.com/search?")!
     
-    
     let termQuery = URLQueryItem(name: "term", value: "marvel")
     let mediaQuery = URLQueryItem(name: "media", value: "movie")
-    
     urlComponents.queryItems?.append(termQuery)
     urlComponents.queryItems?.append(mediaQuery)
     
     let url = urlComponents.url!
-  
     let request = URLRequest(url: url)
     
-    //Q: [weak self] warning?
+    
     let dataTask = session.dataTask(with: request) { data, response, error in
       let successRange = 200..<300
       
@@ -49,7 +46,6 @@ class NetworkServices {
         completion(nil)
       }
     }
-    
     dataTask.resume()
   }
   

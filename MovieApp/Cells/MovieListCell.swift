@@ -53,7 +53,7 @@ class MovieListCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    configure()
+    setAutoLayout()
   }
   
   //Q: image만 초기화 해주는 이유가 있을까?
@@ -63,7 +63,7 @@ class MovieListCell: UITableViewCell {
   }
   
   //MARK: - private
-  private func configure() {
+  private func setAutoLayout() {
     
     contentView.addSubview(thumbnailImage)
     contentView.addSubview(titleLabel)
