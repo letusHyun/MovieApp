@@ -17,7 +17,7 @@ class MovieListCell: UITableViewCell {
   
   let titleLabel: UILabel = {
     let title = UILabel()
-    title.textColor = .label
+    title.textColor = .black
     title.font = .systemFont(ofSize: 18, weight: .bold)
     title.numberOfLines = 2
     title.text = "Title"
@@ -26,7 +26,7 @@ class MovieListCell: UITableViewCell {
   
   let dateLabel: UILabel = {
     let date = UILabel()
-    date.textColor = .label
+    date.textColor = .black
     date.font = .systemFont(ofSize: 13)
     date.text = "xxxx년 xx월 xx일"
     return date
@@ -34,7 +34,7 @@ class MovieListCell: UITableViewCell {
   
   let priceLabel: UILabel = {
     let price = UILabel()
-    price.textColor = .label
+    price.textColor = .black
     price.font = .systemFont(ofSize: 14, weight: .bold)
     price.text = "\(99.99)USD"
     price.textAlignment = .right
@@ -53,13 +53,38 @@ class MovieListCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
+    selectionStyle = .none
     setAutoLayout()
   }
   
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  //MARK: - Override
   //Q: image만 초기화 해주는 이유가 있을까?
   override func prepareForReuse() {
     super.prepareForReuse()
+    
     thumbnailImage.image = nil
+  }
+  
+  // Cell's color changing with animation
+    // Have to: self.selectionStyle = .none
+  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+    super.setHighlighted(highlighted, animated: animated)
+    
+    guard self.isHighlighted else { return }
+  
+    UIView.animate(
+      withDuration: 0.2,
+      animations: { self.backgroundColor = .systemGray5 },
+      completion: { _ in
+        UIView.animate(withDuration: 0.05) {
+          self.backgroundColor = .white
+        }
+      })
   }
   
   //MARK: - private
@@ -106,9 +131,7 @@ class MovieListCell: UITableViewCell {
     descriptionLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
   }
   
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  
   
 }
 

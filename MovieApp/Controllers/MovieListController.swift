@@ -69,13 +69,12 @@ class MovieListController: UIViewController {
     let isoDate = isoFormatter.date(from: dateString)!
     
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy년 MM월 dd일"
+    formatter.dateFormat = "MM.dd.yyyy"
     
     let result = formatter.string(from: isoDate)
     return result
   }
 }
-
 
 extension MovieListController: UITableViewDelegate, UITableViewDataSource {
   
@@ -103,6 +102,7 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
     }
     return cell
   }
+  
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let detailVC = DetailViewController()
