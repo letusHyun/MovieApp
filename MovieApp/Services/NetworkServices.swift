@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class NetworkServices {
+  var term: String?
+  
   func getAPI(completion: @escaping (MovieList?) -> Void) {
     //세션 생성, 환경 설정
     let sessionConfig = URLSessionConfiguration.default
@@ -17,7 +19,7 @@ class NetworkServices {
     //component
     var urlComponents = URLComponents(string: "https://itunes.apple.com/search?")!
     
-    let termQuery = URLQueryItem(name: "term", value: "marvel")
+    let termQuery = URLQueryItem(name: "term", value: term ?? "")
     let mediaQuery = URLQueryItem(name: "media", value: "movie")
     urlComponents.queryItems?.append(termQuery)
     urlComponents.queryItems?.append(mediaQuery)

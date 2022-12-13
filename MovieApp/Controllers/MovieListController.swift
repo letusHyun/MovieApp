@@ -20,6 +20,7 @@ class MovieListController: UIViewController {
   
   var searchBar: UISearchBar!
   var movieList: MovieList?
+  let networkServices = NetworkServices()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,13 +28,16 @@ class MovieListController: UIViewController {
     tableView.delegate = self
     tableView.dataSource = self
     
+    
     configureUI()
-    configureNetworkServices()
+    
   }
   
   //MARK: - Private
   private func configureUI() {
     searchBar = UISearchBar()
+    searchBar.delegate = self
+    
     searchBar.placeholder = "Input Movie"
     searchBar.layer.borderWidth = 0.5
     searchBar.layer.borderColor = UIColor.systemGray4.cgColor
@@ -50,9 +54,12 @@ class MovieListController: UIViewController {
   }
   
   private func configureNetworkServices() {
-    NetworkServices().getAPI { [weak self] movieList in
-      if let movieList = movieList {
-        self?.movieList = movieList
+    networkServices.getAPI { [weak self] movieList in
+      if let hasMovieList = movieList {
+        self?.movieList = hasMovieList
+        DispatchQueue.main.async {
+          self?.tableView.reloadData()
+        }
       }
     }
   }
@@ -68,6 +75,7 @@ class MovieListController: UIViewController {
     return result
   }
 }
+
 
 extension MovieListController: UITableViewDelegate, UITableViewDataSource {
   
@@ -102,6 +110,12 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
     detailVC.movieInfo = movieList?.results[indexPath.row]
     present(detailVC, animated: true)
   }
-  
 }
 
+//MARK: SearchBarDelegate
+extension MovieListController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    networkServices.term = searchBar.text
+    configureNetworkServices()
+  }
+}
