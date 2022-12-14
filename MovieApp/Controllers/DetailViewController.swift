@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 class DetailViewController: UIViewController {
   //MARK: - Property
@@ -19,7 +20,6 @@ class DetailViewController: UIViewController {
   
   let contentView: UIView = {
     let view = UIView()
-    view.backgroundColor = .systemCyan //will Delete
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
@@ -69,21 +69,49 @@ class DetailViewController: UIViewController {
   }()
   
   var movieInfo: Movie?
+  let player = AVPlayer()
+  var playerLayer: AVPlayerLayer?
   
+  //MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     configureUI()
+    configureAV()
     buttonsClicked()
   }
   
+  //viewDidLoad에서는 frame, bounds를 사용할 수 없음
+  //frame, bounds 작업은 viewDidLayoutSubviews or viewWillLayoutSubviews
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    playerLayer?.frame = contentView.bounds
+  }
+  
   //MARK: - Private
+  private func configureAV() {
+    guard let previewURL = movieInfo?.previewUrl else { return }
+    guard let url = URL(string: previewURL) else { return }
+    
+    let item = AVPlayerItem(url: url)
+    self.player.replaceCurrentItem(with: item)
+    
+    playerLayer = AVPlayerLayer(player: player)
+    playerLayer?.videoGravity = .resizeAspectFill
+    if let pl = playerLayer {
+      contentView.layer.addSublayer(pl)
+    }
+    
+    player.play()
+  }
+  
   private func configureUI() {
     view.backgroundColor = .white
+    setAutoLayout()
+    
     if let movie = movieInfo {
       titleLabel.text = movie.trackName
       descriptionLabel.text = movie.longDescription
     }
-    setAutoLayout()
   }
   
   private func setAutoLayout() {
@@ -126,11 +154,21 @@ class DetailViewController: UIViewController {
   }
   
   private func buttonsClicked() {
-    closeButton.addTarget(self, action: #selector(closeBtnClicked), for: .touchUpInside)
-    
+    closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
+    playButton.addTarget(self, action: #selector(playButtonClicked), for: .touchUpInside)
+    stopButton.addTarget(self, action: #selector(stopButtonClicked), for: .touchUpInside)
   }
-  
-  @objc func closeBtnClicked() {
+  //MARK: - Selector
+  @objc func closeButtonClicked() {
     dismiss(animated: true)
   }
+  
+  @objc func playButtonClicked() {
+    player.play()
+  }
+  
+  @objc func stopButtonClicked() {
+    player.pause()
+  }
 }
+

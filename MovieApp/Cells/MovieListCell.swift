@@ -130,8 +130,4 @@ class MovieListCell: UITableViewCell {
     descriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
     descriptionLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
   }
-  
-  
-  
 }
-

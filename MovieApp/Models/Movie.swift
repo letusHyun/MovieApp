@@ -18,6 +18,7 @@ struct Movie: Codable {
   let imageUrl: String?
   let shortDescription: String?
   let longDescription: String?
+  let previewUrl: String?
   
   enum CodingKeys: String, CodingKey {
     case trackName
@@ -26,5 +27,6 @@ struct Movie: Codable {
     case trackPrice
     case shortDescription
     case longDescription
+    case previewUrl
   }
 }

@@ -91,7 +91,9 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
       cell.titleLabel.text = movie.trackName
       cell.descriptionLabel.text = movie.shortDescription
       cell.dateLabel.text = dateFormatting(dateString: movie.date)
-      cell.priceLabel.text = "\(movie.trackPrice!)USD"
+      if let hasPrice = movie.trackPrice {
+        cell.priceLabel.text = "\(hasPrice)USD"
+      }
       if let hasUrl = movie.imageUrl {
         NetworkServices().loadImage(urlString: hasUrl) { image in
           DispatchQueue.main.async {
