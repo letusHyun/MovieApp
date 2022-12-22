@@ -86,7 +86,6 @@
 		13FD448E2943101F00499242 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				13FD449A2946FBDC00499242 /* CustomUI */,
 				135A88B92941C59900DE410F /* MovieListController.swift */,
 				13FD4498294640C500499242 /* DetailViewController.swift */,
 			);
@@ -107,13 +106,6 @@
 				13FD449329442A5200499242 /* Movie.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		13FD449A2946FBDC00499242 /* CustomUI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -9,12 +9,15 @@ import UIKit
 
 class MovieListController: UIViewController {
   //MARK: - Property
-  let tableView: UITableView = {
+  lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.register(MovieListCell.self, forCellReuseIdentifier: "MovieListCell")
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 160
+    tableView.delegate = self
+    tableView.dataSource = self
+    
     return tableView
   }()
   
@@ -25,10 +28,7 @@ class MovieListController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.delegate = self
-    tableView.dataSource = self
-    
-    
+
     configureUI()
     
   }
@@ -53,17 +53,6 @@ class MovieListController: UIViewController {
     ])
   }
   
-  private func configureNetworkServices() {
-    networkServices.getAPI { [weak self] movieList in
-      if let hasMovieList = movieList {
-        self?.movieList = hasMovieList
-        DispatchQueue.main.async {
-          self?.tableView.reloadData()
-        }
-      }
-    }
-  }
-  
   private func dateFormatting(dateString: String) -> String {
     let isoFormatter = ISO8601DateFormatter()
     let isoDate = isoFormatter.date(from: dateString)!
@@ -83,7 +72,9 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListCell", for: indexPath) as? MovieListCell else {
+    guard let cell = tableView.dequeueReusableCell(
+      withIdentifier: "MovieListCell",
+      for: indexPath) as? MovieListCell else {
       return UITableViewCell()
     }
     
@@ -91,9 +82,8 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
       cell.titleLabel.text = movie.trackName
       cell.descriptionLabel.text = movie.shortDescription
       cell.dateLabel.text = dateFormatting(dateString: movie.date)
-      if let hasPrice = movie.trackPrice {
-        cell.priceLabel.text = "\(hasPrice)USD"
-      }
+      cell.priceLabel.text = "\(movie.trackPrice ?? 0.0)USD"
+      
       if let hasUrl = movie.imageUrl {
         NetworkServices().loadImage(urlString: hasUrl) { image in
           DispatchQueue.main.async {
@@ -102,6 +92,7 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
         }
       }
     }
+    
     return cell
   }
   
@@ -117,7 +108,14 @@ extension MovieListController: UITableViewDelegate, UITableViewDataSource {
 //MARK: SearchBarDelegate
 extension MovieListController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    networkServices.term = searchBar.text
-    configureNetworkServices()
+    networkServices.getAPI(searchBar.text ?? "") { [weak self] movieList in
+      
+      if let hasMovieList = movieList {
+        self?.movieList = hasMovieList
+        DispatchQueue.main.async {
+          self?.tableView.reloadData()
+        }
+      }
+    }
   }
 }

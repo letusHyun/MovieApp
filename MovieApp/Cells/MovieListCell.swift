@@ -75,8 +75,7 @@ class MovieListCell: UITableViewCell {
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
     super.setHighlighted(highlighted, animated: animated)
     
-    guard self.isHighlighted else { return }
-  
+    guard highlighted else { return }
     UIView.animate(
       withDuration: 0.2,
       animations: { self.backgroundColor = .systemGray5 },
